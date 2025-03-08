@@ -23,13 +23,21 @@ wumiOA 人事管理系统是一款基于 Vue3 和 Django 开发的高效人事�
 5. 自定义权限管理，实现了按部门的权限管理。
 
 #### 服务器部署流程
-1.  克隆该项目
-```git clone https://github.com/tsaydust/wumi_oaback.git```
-和wumi_oafront,```git clone https://github.com/tsaydust/wumi_oafront.git```放在同一个文件夹www下
+1.  克隆wumi_oaback项目
+```
+git clone https://github.com/tsaydust/wumi_oaback.git
+```
+和wumi_oafront,
+```
+git clone https://github.com/tsaydust/wumi_oafront.git
+```
+放在同一个文件夹www下
 
-2.  在www目录创建volumes文件夹负责容器数据持久化
-```mkdir volumes```
-3.  创建compose.yml
+3.  在www目录创建volumes文件夹负责容器数据持久化
+```
+mkdir volumes
+```
+5.  创建compose.yml
 ```
 name: oa
 services:
@@ -78,6 +86,8 @@ services:
     volumes:
       - ./volumes/sock:/data/sock
       - ./volumes/oaback/data:/data
+      - ./volumes/oaback/staticfiles:/www/staticfiles
+      - ./volumes/oaback/media:/www/media
     networks:
       - oa
   oafront:
@@ -91,6 +101,8 @@ services:
     volumes:
       - ./volumes/sock:/data/sock
       - ./volumes/oafront/log:/data/log
+      - ./volumes/oaback/staticfiles:/www/staticfiles
+      - ./volumes/oaback/media:/www/media
     networks:
       - oa
 networks:
